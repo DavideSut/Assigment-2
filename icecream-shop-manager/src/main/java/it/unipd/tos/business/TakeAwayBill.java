@@ -10,6 +10,6 @@ import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
 
 public interface TakeAwayBill {
-    double getOrderPrice(List<MenuItem> itemsOrdered, User user, long time)
+    double getOrderPrice(List<MenuItem> itemsOrdered, User user)
         throws RestaurantBillException;
 }

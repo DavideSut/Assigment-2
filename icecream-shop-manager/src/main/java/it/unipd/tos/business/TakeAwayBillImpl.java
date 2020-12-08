@@ -44,6 +44,11 @@ public class TakeAwayBillImpl implements TakeAwayBill {
             result -= cheapestGelato.getPrice() * 0.5D;
         }
 
+        // Issue 3: Calcolo sconto 10% se il totale > 50 euro
+        if(result > 50D) {
+            result = result * 0.9D;
+        }
+
         return result;
     }
 }

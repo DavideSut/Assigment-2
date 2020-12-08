@@ -69,4 +69,34 @@ public class TakeAwayBillTest {
         assertEquals(18.5D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
     }
 
+    @Test
+    public void test_getOrderPrice10DiscountApplied() throws RestaurantBillException {
+        list.add(bananaSplit);
+        list.add(bananaSplit);
+        list.add(bananaSplit);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        assertEquals(45.9D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+    }
+
+    @Test
+    public void test_getOrderPrice50plus10DiscountApplied() throws RestaurantBillException {
+        list.add(bananaSplit);
+        list.add(bananaSplit);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        list.add(pinguino);
+        assertEquals(48.15D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+    }
+
 }

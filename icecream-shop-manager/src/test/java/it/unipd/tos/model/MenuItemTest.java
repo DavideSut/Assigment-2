@@ -46,7 +46,7 @@ public class MenuItemTest {
 
     @Test
     public void testPriceGetter() {
-        assertEquals(3D, item.getPrice(), 0.0001D);
+        assertEquals(3D, item.getPrice(), 0.001D);
     }
 
     @Test

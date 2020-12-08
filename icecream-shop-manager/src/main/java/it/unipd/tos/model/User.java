@@ -11,11 +11,11 @@ public class User {
     private long age;
 
     public User(String username, long age) {
-        if(username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
+        if(username == null || username.length() == 0) {
+            throw new IllegalArgumentException("Username non è valido");
         }
         if(age <= 0) {
-            throw new IllegalArgumentException("Age must be > 0");
+            throw new IllegalArgumentException("Age deve essere > 0");
         }
         this.username = username;
         this.age = age;

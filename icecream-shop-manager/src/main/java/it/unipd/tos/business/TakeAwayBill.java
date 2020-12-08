@@ -12,5 +12,5 @@ import it.unipd.tos.model.User;
 public interface TakeAwayBill {
     double getOrderPrice(List<MenuItem> itemsOrdered, User user, long time)
         throws RestaurantBillException;
-        //time è espresso in secondi dopo la mezzanotte
+        // time è espresso in secondi dopo la mezzanotte
 }

@@ -18,21 +18,23 @@ public class TakeAwayBillImpl implements TakeAwayBill {
 
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user,
      long time) throws RestaurantBillException {
-        //time è espresso in secondi dopo la mezzanotte
+        // time è espresso in secondi dopo la mezzanotte
 
         if(itemsOrdered == null) {
-            throw new IllegalArgumentException("ItemsOrder is null");
+            throw new IllegalArgumentException(
+                "ItemsOrder non può essere null");
         }
         if(itemsOrdered.size() == 0) {
-            throw new IllegalArgumentException("ItemsOrder is empty");
+            throw new IllegalArgumentException(
+                "ItemsOrder non può essere vuoto");
         }
         if(time < 0) {
-            throw new IllegalArgumentException("Time must be >= 0");
+            throw new IllegalArgumentException("Time deve essere >= 0");
         }
 
         // Issue 4: Controllo limite items
         if(itemsOrdered.size() > 30) {
-            throw new RestaurantBillException("To many items");
+            throw new RestaurantBillException("Troppi elementi ordinati");
         }
 
         double result = 0;
@@ -57,7 +59,7 @@ public class TakeAwayBillImpl implements TakeAwayBill {
 
         // Issue 3: Calcolo sconto 10% se il totale > 50 euro
         if(result > 50D) {
-            result = result * 0.9D;
+            result *= 0.9D;
         }
 
         // Issue 5: Commissione
@@ -66,7 +68,7 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         }
 
         // Issue 6: Ordini in regalo
-        if(user.getAge() < 18 && time >= 64800 && time <= 68400){
+        if(user.getAge() < 18L && time >= 64800 && time <= 68400){
             if(!(listUserFree.contains(user)) && listUserFree.size() < 10){
                 listUserFree.add(user);
                 result = 0D;

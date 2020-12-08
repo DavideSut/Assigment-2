@@ -16,17 +16,22 @@ public class UserTest {
 
     @Before
     public void setup() {
-        user = new User("Davide", 21);
+        user = new User("Davide", 21L);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_constructorNullUsernameParam() {
-        new User(null, 21);
+        new User(null, 21L);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_constructorZeroLengthUsernameParam() {
+        new User("",21L);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_constructorNonPositiveAgeParam() {
-        new User("Davide", 0);
+        new User("Davide", 0L);
     }
 
     @Test
@@ -36,7 +41,7 @@ public class UserTest {
 
     @Test
     public void testAgeGetter() {
-        assertEquals(21, user.getAge());
+        assertEquals(21L, user.getAge());
     }
 
 }

@@ -9,8 +9,8 @@ import java.util.List;
 public class RestaurantBillException extends Exception {
     private String errInfo;
     public RestaurantBillException(String errInfo){
-        if(errInfo == "To many items"){
-            System.out.println("Items must be < 30");
+        if(errInfo == "Troppi elementi ordinati"){
+            System.out.println("L'ordinazione supera i 30 elementi");
         }
         errInfo = this.errInfo;
     }

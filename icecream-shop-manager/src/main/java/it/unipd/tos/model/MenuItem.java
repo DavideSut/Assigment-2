@@ -18,13 +18,13 @@ public class MenuItem {
     public MenuItem(ItemType itemType, String name, double price) { 
 
         if(itemType == null) {
-            throw new IllegalArgumentException("ItemType cannot be null");
+            throw new IllegalArgumentException("ItemType non può essere null");
         }
         if(name == null || name.length() == 0) {
-            throw new IllegalArgumentException("Name is invalid");
+            throw new IllegalArgumentException("Name non è valido");
         }
         if(price <= 0) {
-            throw new IllegalArgumentException("Price must be > 0");
+            throw new IllegalArgumentException("Price deve essere > 0");
         }
         this.itemType = itemType;
         this.name = name;

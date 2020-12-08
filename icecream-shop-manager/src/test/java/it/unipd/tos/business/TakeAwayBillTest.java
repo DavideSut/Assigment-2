@@ -51,6 +51,14 @@ public class TakeAwayBillTest {
         takeAwayBill.getOrderPrice(list,user);
     }
 
+    @Test(expected = RestaurantBillException.class)
+    public void test_getOrderPriceToManyItems() throws RestaurantBillException {
+        for (int i = 0; i < 33; i++) {
+            list.add(bananaSplit);
+        }
+        takeAwayBill.getOrderPrice(list,user);
+    }
+
     @Test
     public void test_getOrderPriceApplied() throws RestaurantBillException {
         list.add(bananaSplit);

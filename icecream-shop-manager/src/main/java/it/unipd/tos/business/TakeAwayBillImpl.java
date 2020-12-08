@@ -24,6 +24,11 @@ public class TakeAwayBillImpl implements TakeAwayBill {
             throw new IllegalArgumentException("ItemsOrder is empty");
         }
 
+        // Issue 4: Controllo limite items
+        if(itemsOrdered.size() > 30) {
+            throw new RestaurantBillException("To many items");
+        }
+
         double result = 0;
         int nGelati = 0;
         MenuItem cheapestGelato = null;

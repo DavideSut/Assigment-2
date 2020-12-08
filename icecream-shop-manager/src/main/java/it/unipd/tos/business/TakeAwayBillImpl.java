@@ -14,14 +14,20 @@ import java.util.LinkedList;
 
 public class TakeAwayBillImpl implements TakeAwayBill {
 
-    public double getOrderPrice(List<MenuItem> itemsOrdered, User user) 
-    throws RestaurantBillException {
+    private LinkedList<User> listUserFree = new LinkedList<>();
+
+    public double getOrderPrice(List<MenuItem> itemsOrdered, User user,
+     long time) throws RestaurantBillException {
+        //time è espresso in secondi dopo la mezzanotte
 
         if(itemsOrdered == null) {
             throw new IllegalArgumentException("ItemsOrder is null");
         }
         if(itemsOrdered.size() == 0) {
             throw new IllegalArgumentException("ItemsOrder is empty");
+        }
+        if(time < 0) {
+            throw new IllegalArgumentException("Time must be >= 0");
         }
 
         // Issue 4: Controllo limite items
@@ -57,6 +63,14 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         // Issue 5: Commissione
         if(result < 10D) {
             result += 0.5D;
+        }
+
+        // Issue 6: Ordini in regalo
+        if(user.getAge() < 18 && time >= 64800 && time <= 68400){
+            if(!(listUserFree.contains(user)) && listUserFree.size() < 10){
+                listUserFree.add(user);
+                result = 0D;
+            }
         }
 
         return result;

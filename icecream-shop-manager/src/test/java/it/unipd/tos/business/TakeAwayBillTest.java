@@ -24,8 +24,21 @@ public class TakeAwayBillTest {
     private MenuItem pinguino;
     private MenuItem chinotto;
 
+    private User user1;
+    private User user2;
+    private User user3;
+    private User user4;
+    private User user5;
+    private User user6;
+    private User user7;
+    private User user8;
+    private User user9;
+    private User user10;
+    private User user11;
+
     LinkedList<MenuItem> list = new LinkedList<>();
     private User user;
+    LinkedList<User> listUser = new LinkedList<>();
 
     @Before
     public void setup() {
@@ -36,6 +49,17 @@ public class TakeAwayBillTest {
         pinguino = new MenuItem(MenuItem.ItemType.BUDINO, "Pinguino", 7D);
         chinotto = new MenuItem(MenuItem.ItemType.BEVANDA, "Chinotto", 2.5D);
 
+        user1 = new User("user1",17L);
+        user2 = new User("user2",17L);
+        user3 = new User("user3",16L);
+        user4 = new User("user4",15L);
+        user5 = new User("user5",14L);
+        user6 = new User("user6",13L);
+        user7 = new User("user7",17L);
+        user8 = new User("user8",14L);
+        user9 = new User("user9",16L);
+        user10 = new User("user10",17L);
+
         takeAwayBill = new TakeAwayBillImpl();
         list = new LinkedList<>();
         user = new User("user",21);
@@ -43,12 +67,12 @@ public class TakeAwayBillTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_getOrderPriceNullItem() throws RestaurantBillException {
-        takeAwayBill.getOrderPrice(null,user);
+        takeAwayBill.getOrderPrice(null,user,0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_getOrderPriceZeroItem() throws RestaurantBillException {
-        takeAwayBill.getOrderPrice(list,user);
+        takeAwayBill.getOrderPrice(list,user,0);
     }
 
     @Test(expected = RestaurantBillException.class)
@@ -56,7 +80,13 @@ public class TakeAwayBillTest {
         for (int i = 0; i < 33; i++) {
             list.add(bananaSplit);
         }
-        takeAwayBill.getOrderPrice(list,user);
+        takeAwayBill.getOrderPrice(list,user,0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getOrderPriceNegativeTimeParam() throws RestaurantBillException {
+        list.add(bananaSplit);
+        takeAwayBill.getOrderPrice(list,user,-1);
     }
 
     @Test
@@ -65,7 +95,7 @@ public class TakeAwayBillTest {
         list.add(bananaSplit);
         list.add(bananaSplit);
         list.add(chinotto);
-        assertEquals(11.5D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+        assertEquals(11.5D, takeAwayBill.getOrderPrice(list,user,0), 0.0001D);
     }
 
     @Test
@@ -76,7 +106,7 @@ public class TakeAwayBillTest {
         list.add(coppaNafta);
         list.add(coppaNafta);
         list.add(coppaNafta);
-        assertEquals(18.5D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+        assertEquals(18.5D, takeAwayBill.getOrderPrice(list,user,0), 0.0001D);
     }
 
     @Test
@@ -90,7 +120,7 @@ public class TakeAwayBillTest {
         list.add(pinguino);
         list.add(pinguino);
         list.add(pinguino);
-        assertEquals(45.9D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+        assertEquals(45.9D, takeAwayBill.getOrderPrice(list,user,0), 0.0001D);
     }
 
     @Test
@@ -106,15 +136,34 @@ public class TakeAwayBillTest {
         list.add(pinguino);
         list.add(pinguino);
         list.add(pinguino);
-        assertEquals(48.15D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+        assertEquals(48.15D, takeAwayBill.getOrderPrice(list,user,0), 0.0001D);
     }
 
     @Test
     public void test_getOrderPriceCommissionApplied() throws RestaurantBillException {
         list.add(bananaSplit);
         list.add(bananaSplit);
-        assertEquals(6.5D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+        assertEquals(6.5D, takeAwayBill.getOrderPrice(list,user,0), 0.0001D);
     }
 
+    @Test
+    public void test_getOrderPriceFreeOrdersApplied() throws RestaurantBillException {
+        listUser.add(user1);
+        listUser.add(user2);
+        listUser.add(user3);
+        listUser.add(user4);
+        listUser.add(user5);
+        listUser.add(user6);
+        listUser.add(user7);
+        listUser.add(user8);
+        listUser.add(user9);
+        listUser.add(user10);
 
+        list.add(bananaSplit);
+
+        for(User u : listUser){
+            assertEquals(0D, takeAwayBill.getOrderPrice(list,u,65000), 0.0001D);
+        }
+        
+    }
 }

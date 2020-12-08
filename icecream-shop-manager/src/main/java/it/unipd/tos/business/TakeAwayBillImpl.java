@@ -25,10 +25,23 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         }
 
         double result = 0;
+        int nGelati = 0;
+        MenuItem cheapestGelato = null;
 
-        // Issue 1: Calcolo del totale
         for (MenuItem m : itemsOrdered) {
-            result += m.getPrice();
+            result += m.getPrice(); // Issue 1: Calcolo del totale
+            if(m.getItemType() == MenuItem.ItemType.GELATO) { 
+                nGelati++;
+                if(cheapestGelato == null || 
+                cheapestGelato.getPrice() > m.getPrice()) {
+                    cheapestGelato = m;
+                }
+            }
+        }
+
+        // Issue 2: Calcolo sconto 50% se il numero di gelati > 5
+        if(nGelati > 5) {
+            result -= cheapestGelato.getPrice() * 0.5D;
         }
 
         return result;

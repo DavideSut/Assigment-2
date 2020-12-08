@@ -58,4 +58,15 @@ public class TakeAwayBillTest {
         assertEquals(6D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
     }
 
+    @Test
+    public void test_getOrderPrice50DiscountApplied() throws RestaurantBillException {
+        list.add(bananaSplit);
+        list.add(bananaSplit);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        list.add(coppaNafta);
+        assertEquals(18.5D, takeAwayBill.getOrderPrice(list,user), 0.0001D);
+    }
+
 }
